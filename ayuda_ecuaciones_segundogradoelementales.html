@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecuaciones de segundo grado Versión 1</title>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px 24px 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 14px 30px rgba(15,23,42,0.18);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        details {
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            padding: 0.8rem 1rem;
+            background: #f9fafb;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.6rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .equation-box {
+            margin: 1rem 0;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            background: #eef2ff;
+            border: 1px solid #e0e7ff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .inputs-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 0.8rem 0 1rem;
+        }
+
+        .inputs-row label {
+            font-size: 0.9rem;
+        }
+
+        .inputs-row input {
+            padding: 0.35rem 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            min-width: 120px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        button {
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+        }
+
+        .feedback {
+            min-height: 1.2rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .ok {
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-weight: 600;
+        }
+
+        .info {
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .exam-info {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+    </style>
+
+    <!-- Configuración MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {inlineMath: [['\\(','\\)'], ['$', '$']]}
+        };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Ecuaciones de segundo grado Versión 1</h1>
+    <div class="subtitle">Práctica guiada y modo examen</div>
+
+    <!-- TEORÍA BÁSICA EN 3 DESPLEGABLES -->
+    <details>
+        <summary>Ecuación completa \(ax^2 + bx + c = 0\)</summary>
+        <div style="margin-top:0.8rem;font-size:0.95rem;">
+            <p>
+                Una ecuación de segundo grado completa tiene la forma
+                \(ax^2 + bx + c = 0\), con \(a \neq 0\).
+            </p>
+            <p>
+                La resolvemos usando la fórmula general:
+            </p>
+            <p>
+                \[
+                x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+                \]
+            </p>
+
+            <p><strong>Ejemplo:</strong></p>
+            <p>
+                Resolver \(2x^2 - 3x - 2 = 0\).
+            </p>
+            <p>
+                Aquí \(a = 2\), \(b = -3\), \(c = -2\).
+            </p>
+            <p>
+                Sustituimos en la fórmula:
+            </p>
+            <p>
+                \[
+                x = \frac{-(-3) \pm \sqrt{(-3)^2 - 4\cdot 2\cdot(-2)}}{2\cdot 2}
+                = \frac{3 \pm \sqrt{9 + 16}}{4}
+                = \frac{3 \pm \sqrt{25}}{4}
+                \]
+            </p>
+            <p>
+                \[
+                x_1 = \frac{3 + 5}{4} = 2,
+                \qquad
+                x_2 = \frac{3 - 5}{4} = -\frac{1}{2}
+                \]
+            </p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Incompleta \(ax^2 + bx = 0\)</summary>
+        <div style="margin-top:0.8rem;font-size:0.95rem;">
+            <p>
+                En este caso la ecuación es \(ax^2 + bx = 0\).
+            </p>
+            <p><strong>Pasos:</strong></p>
+            <ol>
+                <li>Sacamos factor común \(x\): \(ax^2 + bx = x(ax + b)\).</li>
+                <li>Aplicamos \(x(ax + b) = 0\): entonces \(x = 0\) o \(ax + b = 0\).</li>
+                <li>Resolvemos la ecuación lineal \(ax + b = 0\).</li>
+            </ol>
+
+            <p><strong>Ejemplo:</strong></p>
+            <p>
+                Resolver \(3x^2 - 6x = 0\).
+            </p>
+            <p>
+                Sacamos factor común:
+                \[
+                3x^2 - 6x = 3x(x - 2)
+                \]
+            </p>
+            <p>
+                Igualamos cada factor a cero:
+                \[
+                3x = 0 \Rightarrow x = 0,
+                \qquad
+                x - 2 = 0 \Rightarrow x = 2
+                \]
+            </p>
+            <p>
+                Soluciones: \(x_1 = 0\), \(x_2 = 2\).
+            </p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Incompleta \(ax^2 + c = 0\)</summary>
+        <div style="margin-top:0.8rem;font-size:0.95rem;">
+            <p>
+                En este caso la ecuación es \(ax^2 + c = 0\).
+            </p>
+            <p><strong>Pasos:</strong></p>
+            <ol>
+                <li>Pasamos \(c\) al otro lado: \(ax^2 = -c\).</li>
+                <li>Despejamos \(x^2\): \(x^2 = -\dfrac{c}{a}\).</li>
+                <li>Extraemos raíz: \(x = \pm \sqrt{-\dfrac{c}{a}}\).</li>
+            </ol>
+
+            <p><strong>Ejemplo:</strong></p>
+            <p>
+                Resolver \(2x^2 - 8 = 0\).
+            </p>
+            <p>
+                Pasamos \(-8\) al otro lado:
+                \[
+                2x^2 = 8
+                \]
+            </p>
+            <p>
+                Despejamos \(x^2\):
+                \[
+                x^2 = \frac{8}{2} = 4
+                \]
+            </p>
+            <p>
+                Extraemos raíz:
+                \[
+                x = \pm \sqrt{4} = \pm 2
+                \]
+            </p>
+            <p>
+                Soluciones: \(x_1 = 2\), \(x_2 = -2\).
+            </p>
+        </div>
+    </details>
+
+    <!-- PESTAÑAS -->
+    <div class="tabs">
+        <button class="tab-btn active" data-target="practice">Modo práctica</button>
+        <button class="tab-btn" data-target="exam">Modo examen</button>
+    </div>
+
+    <!-- MODO PRÁCTICA -->
+    <section id="practice" class="section active">
+        <p class="info">
+            Escribe las soluciones de la ecuación (x₁ y x₂). El orden no importa.
+            Si solo hay una solución, ambas raíces serán iguales.
+        </p>
+
+        <div class="equation-box" id="practice-equation">
+            <!-- Aquí va la ecuación -->
+        </div>
+
+        <div class="inputs-row">
+            <div>
+                <label for="practice-x1">x₁ = </label><br>
+                <input type="text" id="practice-x1" placeholder="Ej: 2">
+            </div>
+            <div>
+                <label for="practice-x2">x₂ = </label><br>
+                <input type="text" id="practice-x2" placeholder="Ej: -3">
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn-primary" id="btn-check-practice">Comprobar</button>
+            <button class="btn-secondary" id="btn-show-solution-practice">Mostrar solución</button>
+            <button class="btn-secondary" id="btn-new-practice">Nueva ecuación</button>
+        </div>
+
+        <div class="feedback" id="practice-feedback"></div>
+        <div class="info" id="practice-solution-text"></div>
+    </section>
+
+    <!-- MODO EXAMEN -->
+    <section id="exam" class="section">
+        <p class="exam-info">
+            Examen de <strong>5 ecuaciones</strong>. Escribe x₁ y x₂ en cada una.
+            Al final verás tu puntuación.
+        </p>
+
+        <button class="btn-primary" id="btn-start-exam">Empezar examen</button>
+
+        <div id="exam-area" style="display:none; margin-top:1rem;">
+            <p class="exam-info" id="exam-progress"></p>
+
+            <div class="equation-box" id="exam-equation">
+                <!-- Ecuación de examen -->
+            </div>
+
+            <div class="inputs-row">
+                <div>
+                    <label for="exam-x1">x₁ = </label><br>
+                    <input type="text" id="exam-x1">
+                </div>
+                <div>
+                    <label for="exam-x2">x₂ = </label><br>
+                    <input type="text" id="exam-x2">
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn-primary" id="btn-next-exam">Corregir y siguiente</button>
+            </div>
+
+            <div class="feedback" id="exam-feedback"></div>
+            <div class="info" id="exam-solution-text"></div>
+        </div>
+
+        <div id="exam-result" style="margin-top:1rem;font-weight:600;"></div>
+    </section>
+
+    <div class="footer">
+        HTML creado por Sergio Jodral. Profesor de matemáticas.
+    </div>
+</div>
+
+<script>
+    // ==========================
+    // GENERACIÓN DE ECUACIONES
+    // ==========================
+
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // NUEVA VERSIÓN: más amplitud de coeficientes manteniendo raíces enteras
+    function generateNiceQuadratic() {
+        const type = randInt(1, 3); // 1: completa, 2: sin c, 3: sin b
+        let a, b, c, r1, r2;
+
+        const possibleA = [-3, -2, -1, 1, 2, 3];
+
+        if (type === 1) {
+            // COMPLETA: elegimos dos raíces enteras no nulas y distintas en [-9,9]
+            r1 = randInt(-9, 9);
+            r2 = randInt(-9, 9);
+            while (r2 === r1 || r1 === 0 || r2 === 0) {
+                r1 = randInt(-9, 9);
+                r2 = randInt(-9, 9);
+            }
+            a = possibleA[randInt(0, possibleA.length - 1)];
+            b = -a * (r1 + r2);
+            c = a * r1 * r2;
+        } else if (type === 2) {
+            // INCOMPLETA: ax² + bx = 0 -> raíces 0 y k, con k en [-9,9]\{0}
+            r1 = 0;
+            r2 = randInt(-9, 9);
+            while (r2 === 0) {
+                r2 = randInt(-9, 9);
+            }
+            a = possibleA[randInt(0, possibleA.length - 1)];
+            b = -a * (r1 + r2); // -a*k
+            c = 0;
+        } else {
+            // INCOMPLETA: ax² + c = 0 -> raíces ±k, con k en [1,9]
+            const k = randInt(1, 9);
+            r1 = k;
+            r2 = -k;
+            a = possibleA[randInt(0, possibleA.length - 1)];
+            c = -a * k * k;
+            b = 0;
+        }
+
+        return { a, b, c, r1, r2 };
+    }
+
+    function formatEquation(a, b, c) {
+        let parts = [];
+        function term(coef, text, isFirst) {
+            if (coef === 0) return;
+            let sign = coef > 0 ? "+" : "-";
+            let absCoef = Math.abs(coef);
+
+            if (isFirst) {
+                if (coef === 1 && text !== "") {
+                    parts.push(text);
+                } else if (coef === -1 && text !== "") {
+                    parts.push("-" + text);
+                } else {
+                    parts.push(coef + text);
+                }
+            } else {
+                if (absCoef === 1 && text !== "") {
+                    parts.push(" " + sign + " " + text);
+                } else {
+                    parts.push(" " + sign + " " + absCoef + text);
+                }
+            }
+        }
+
+        let firstDone = false;
+
+        if (a !== 0) {
+            term(a, "x²", true);
+            firstDone = true;
+        }
+
+        if (b !== 0) {
+            term(b, "x", !firstDone);
+            firstDone = true;
+        }
+
+        if (c !== 0 || !firstDone) {
+            term(c, "", !firstDone);
+        }
+
+        return parts.join("") + " = 0";
+    }
+
+    function parseNumber(str) {
+        const s = str.replace(",", ".").trim();
+        if (s === "") return NaN;
+        return Number(s);
+    }
+
+    function compareRoots(user1, user2, r1, r2) {
+        const EPS = 1e-6;
+        const user = [user1, user2].sort((a, b) => a - b);
+        const real = [r1, r2].sort((a, b) => a - b);
+
+        return (Math.abs(user[0] - real[0]) < EPS &&
+                Math.abs(user[1] - real[1]) < EPS);
+    }
+
+    // ==========================
+    // MODO PRÁCTICA
+    // ==========================
+    let currentPracticeEq = null;
+
+    function loadNewPracticeEquation() {
+        currentPracticeEq = generateNiceQuadratic();
+        const eqText = formatEquation(currentPracticeEq.a, currentPracticeEq.b, currentPracticeEq.c);
+        document.getElementById("practice-equation").textContent = eqText;
+        document.getElementById("practice-x1").value = "";
+        document.getElementById("practice-x2").value = "";
+        document.getElementById("practice-feedback").textContent = "";
+        document.getElementById("practice-solution-text").innerHTML = "";
+    }
+
+    document.getElementById("btn-new-practice").addEventListener("click", loadNewPracticeEquation);
+
+    document.getElementById("btn-check-practice").addEventListener("click", () => {
+        if (!currentPracticeEq) return;
+
+        const x1 = parseNumber(document.getElementById("practice-x1").value);
+        const x2 = parseNumber(document.getElementById("practice-x2").value);
+        const fb = document.getElementById("practice-feedback");
+
+        if (isNaN(x1) || isNaN(x2)) {
+            fb.textContent = "❗ Escribe números válidos en x₁ y x₂.";
+            fb.className = "feedback error";
+            return;
+        }
+
+        if (compareRoots(x1, x2, currentPracticeEq.r1, currentPracticeEq.r2)) {
+            fb.textContent = "✅ ¡Correcto! Las soluciones son x₁ = " +
+                currentPracticeEq.r1 + " y x₂ = " + currentPracticeEq.r2 + ".";
+            fb.className = "feedback ok";
+        } else {
+            fb.textContent = "❌ Alguna de las soluciones no es correcta. Revisa tus cálculos.";
+            fb.className = "feedback error";
+        }
+    });
+
+    document.getElementById("btn-show-solution-practice").addEventListener("click", () => {
+        if (!currentPracticeEq) return;
+
+        const { a, b, c, r1, r2 } = currentPracticeEq;
+        const D = b*b - 4*a*c;
+        const raizD = Math.sqrt(D);
+
+        let html = `
+        <div style="margin-bottom:0.6rem; font-weight:600; color:#b91c1c;">
+            ⚠️ Antes de mirar la solución, asegúrate de haberla intentado en tu cuaderno.
+        </div>
+        `;
+
+        // COMPLETA
+        if (b !== 0 && c !== 0) {
+            html += `<p><strong>Tipo:</strong> Ecuación completa \\(${a !== 1 ? a : ""}x^2 ${b>=0?"+":""}${b}x ${c>=0?"+":""}${c} = 0\\).</p>`;
+
+            html += `
+            <p><strong>1) Usamos la fórmula general:</strong></p>
+            <p>
+            \\[
+            x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}
+            \\]
+            </p>
+
+            <p><strong>2) Sustituimos \\(a\\), \\(b\\) y \\(c\\):</strong></p>
+            <p>
+            \\[
+            x = \\frac{-(${b}) \\pm \\sqrt{(${b})^2 - 4\\cdot(${a})\\cdot(${c})}}{2\\cdot(${a})}
+            \\]
+            </p>
+
+            <p><strong>3) Calculamos cada solución:</strong></p>
+            <p>
+            \\[
+            x_1 = \\frac{${-b} + ${raizD}}{${2*a}} = ${r1}, \\qquad
+            x_2 = \\frac{${-b} - ${raizD}}{${2*a}} = ${r2}
+            \\]
+            </p>
+            `;
+        }
+
+        // INCOMPLETA: ax² + bx = 0
+        else if (b !== 0 && c === 0) {
+            html += `<p><strong>Tipo:</strong> Incompleta sin término independiente \\(${a !== 1 ? a : ""}x^2 ${b>=0?"+":""}${b}x = 0\\).</p>`;
+
+            const x2val = r2;
+
+            html += `
+            <p><strong>1) Sacamos factor común:</strong></p>
+            <p>
+            \\[
+            ${a}x^2 ${b>=0?"+":""}${b}x = x(${a}x ${b>=0?"+":""}${b})
+            \\]
+            </p>
+
+            <p><strong>2) Igualamos cada factor a cero:</strong></p>
+            <p>
+            \\[
+            x = 0 \\quad \\text{o} \\quad ${a}x ${b>=0?"+":""}${b} = 0
+            \\]
+            </p>
+
+            <p><strong>3) Resolvemos la ecuación lineal:</strong></p>
+            <p>
+            \\[
+            ${a}x ${b>=0?"+":""}${b} = 0
+            \\Rightarrow x = -\\frac{${b}}{${a}} = ${x2val}
+            \\]
+            </p>
+
+            <p><strong>Soluciones:</strong></p>
+            <p>
+            \\[
+            x_1 = 0, \\qquad x_2 = ${x2val}
+            \\]
+            </p>
+            `;
+        }
+
+        // INCOMPLETA: ax² + c = 0
+        else if (b === 0 && c !== 0) {
+            html += `<p><strong>Tipo:</strong> Incompleta sin término en \\(x\\) \\(${a !== 1 ? a : ""}x^2 ${c>=0?"+":""}${c} = 0\\).</p>`;
+
+            html += `
+            <p><strong>1) Pasamos \\(c\\) al otro lado:</strong></p>
+            <p>
+            \\[
+            ${a}x^2 = -(${c})
+            \\]
+            </p>
+
+            <p><strong>2) Despejamos \\(x^2\\):</strong></p>
+            <p>
+            \\[
+            x^2 = \\frac{-(${c})}{${a}} = \\frac{${-c}}{${a}}
+            \\]
+            </p>
+
+            <p><strong>3) Extraemos raíz cuadrada:</strong></p>
+            <p>
+            \\[
+            x = \\pm \\sqrt{\\frac{${-c}}{${a}}}
+            \\]
+            </p>
+
+            <p><strong>Soluciones:</strong></p>
+            <p>
+            \\[
+            x_1 = ${r1}, \\qquad x_2 = ${r2}
+            \\]
+            </p>
+            `;
+        }
+
+        document.getElementById("practice-solution-text").innerHTML = html;
+
+        if (window.MathJax) {
+            MathJax.typeset();
+        }
+    });
+
+    // ==========================
+    // MODO EXAMEN
+    // ==========================
+    const TOTAL_EXAM_QUESTIONS = 5;
+    let examEquations = [];
+    let currentExamIndex = 0;
+    let examScore = 0;
+
+    function startExam() {
+        examEquations = [];
+        for (let i = 0; i < TOTAL_EXAM_QUESTIONS; i++) {
+            examEquations.push(generateNiceQuadratic());
+        }
+        currentExamIndex = 0;
+        examScore = 0;
+        document.getElementById("exam-result").textContent = "";
+        document.getElementById("exam-feedback").textContent = "";
+        document.getElementById("exam-solution-text").textContent = "";
+        document.getElementById("exam-area").style.display = "block";
+        loadExamQuestion();
+    }
+
+    function loadExamQuestion() {
+        const eqObj = examEquations[currentExamIndex];
+        const eqText = formatEquation(eqObj.a, eqObj.b, eqObj.c);
+        document.getElementById("exam-equation").textContent = eqText;
+        document.getElementById("exam-x1").value = "";
+        document.getElementById("exam-x2").value = "";
+        document.getElementById("exam-feedback").textContent = "";
+        document.getElementById("exam-solution-text").textContent = "";
+        document.getElementById("exam-progress").textContent =
+            "Pregunta " + (currentExamIndex + 1) + " de " + TOTAL_EXAM_QUESTIONS;
+    }
+
+    document.getElementById("btn-start-exam").addEventListener("click", startExam);
+
+    document.getElementById("btn-next-exam").addEventListener("click", () => {
+        if (currentExamIndex >= TOTAL_EXAM_QUESTIONS) return;
+
+        const eqObj = examEquations[currentExamIndex];
+        const x1 = parseNumber(document.getElementById("exam-x1").value);
+        const x2 = parseNumber(document.getElementById("exam-x2").value);
+        const fb = document.getElementById("exam-feedback");
+        const solDiv = document.getElementById("exam-solution-text");
+
+        if (isNaN(x1) || isNaN(x2)) {
+            fb.textContent = "❗ Escribe números válidos en x₁ y x₂ antes de continuar.";
+            fb.className = "feedback error";
+            return;
+        }
+
+        let correct = compareRoots(x1, x2, eqObj.r1, eqObj.r2);
+        if (correct) {
+            fb.textContent = "✅ Correcto.";
+            fb.className = "feedback ok";
+            examScore++;
+        } else {
+            fb.textContent = "❌ Incorrecto.";
+            fb.className = "feedback error";
+        }
+
+        solDiv.textContent = "Soluciones: x₁ = " + eqObj.r1 +
+            ", x₂ = " + eqObj.r2 + ".";
+
+        currentExamIndex++;
+
+        if (currentExamIndex < TOTAL_EXAM_QUESTIONS) {
+            setTimeout(() => {
+                loadExamQuestion();
+            }, 800);
+        } else {
+            const resultDiv = document.getElementById("exam-result");
+            const nota = Math.round((examScore / TOTAL_EXAM_QUESTIONS) * 10 * 10) / 10;
+            resultDiv.textContent = "Has acertado " + examScore + " de " +
+                TOTAL_EXAM_QUESTIONS + " ecuaciones. Nota orientativa: " + nota + " / 10.";
+            document.getElementById("exam-progress").textContent = "Examen terminado.";
+        }
+    });
+
+    // ==========================
+    // PESTAÑAS
+    // ==========================
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section");
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            tabButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const target = btn.getAttribute("data-target");
+            sections.forEach(sec => {
+                if (sec.id === target) {
+                    sec.classList.add("active");
+                } else {
+                    sec.classList.remove("active");
+                }
+            });
+        });
+    });
+
+    // Al cargar, generamos una ecuación de práctica
+    loadNewPracticeEquation();
+</script>
+</body>
+</html>
